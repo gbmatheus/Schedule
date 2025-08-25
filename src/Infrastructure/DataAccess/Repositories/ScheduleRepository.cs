@@ -38,5 +38,14 @@ namespace Infrastructure.DataAccess.Repositories
         {
             _dbContext.Schedules.Update(schedule);
         }
+
+        public async Task<List<Schedule>> GetByDate(DateOnly date)
+        {
+            return await _dbContext.Schedules.Include(schedule => schedule.Room)
+                .AsNoTracking().Where(
+                    schedule => DateOnly.FromDateTime(schedule.DateTimeRange.StartDateTime) == date ||
+                    DateOnly.FromDateTime(schedule.DateTimeRange.EndDateTime) == date
+                ).ToListAsync();
+        }
     }
 }

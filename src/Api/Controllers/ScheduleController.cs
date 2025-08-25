@@ -14,7 +14,7 @@ namespace Api.Controllers
     {
 
         [HttpPost]
-        [ProducesResponseType(typeof(ScheduleResponseDTO), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ScheduleCreateResponseDTO), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ErrorResponseDTO), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Create([FromServices] ICreateScheduleUseCase useCase, [FromBody] ScheduleCreateRequestDTO request)
         {
@@ -25,9 +25,9 @@ namespace Api.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(SchedulesResponseDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> GetAll([FromServices] IGetAllScheduleUseCase useCase)
+        public async Task<IActionResult> GetAll([FromServices] IGetAllScheduleUseCase useCase, [FromQuery] DateOnly? date)
         {
-            var response = await useCase.Execute();
+            var response = await useCase.Execute(date);
 
             if (response.Schedules.Any())
                 return Ok(response);

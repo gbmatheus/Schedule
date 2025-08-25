@@ -4,6 +4,6 @@ namespace Application.UseCases.Schedules.GetAll
 {
     public interface IGetAllScheduleUseCase
     {
-        Task<SchedulesResponseDTO> Execute();
+        Task<SchedulesResponseDTO> Execute(DateOnly? date);
     }
 }

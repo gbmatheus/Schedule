@@ -13,9 +13,16 @@ namespace Application.Mapper
 
         private void EntityToDto()
         {
-            CreateMap<Schedule, ScheduleResponseDTO>()
+            CreateMap<Schedule, ScheduleCreateResponseDTO>()
                 .ForMember(dest => dest.RoomId, opt => opt.MapFrom(src => src.Room.Id))
                 .ForMember(dest => dest.RoomName, opt => opt.MapFrom(src => src.Room.Name))
+                .ForMember(dest => dest.StartDateTime, opt => opt.MapFrom(src => src.DateTimeRange.StartDateTime))
+                .ForMember(dest => dest.EndDateTime, opt => opt.MapFrom(src => src.DateTimeRange.EndDateTime));
+
+            CreateMap<Schedule, ScheduleResponseDTO>()
+                //.ForMember(dest => dest.RoomId, opt => opt.MapFrom(src => src.Room.Id))
+                //.ForMember(dest => dest.RoomName, opt => opt.MapFrom(src => src.Room.Name))
+                .ForMember(dest => dest.Duration, opt => opt.MapFrom(src => src.DateTimeRange.DurationHoursMinutes()))
                 .ForMember(dest => dest.StartDateTime, opt => opt.MapFrom(src => src.DateTimeRange.StartDateTime))
                 .ForMember(dest => dest.EndDateTime, opt => opt.MapFrom(src => src.DateTimeRange.EndDateTime));
 

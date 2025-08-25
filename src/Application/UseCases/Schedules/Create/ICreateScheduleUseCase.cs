@@ -5,6 +5,6 @@ namespace Application.UseCases.Schedules.Create
 {
     public interface ICreateScheduleUseCase
     {
-        Task<ScheduleResponseDTO> Execute(ScheduleCreateRequestDTO request);
+        Task<ScheduleCreateResponseDTO> Execute(ScheduleCreateRequestDTO request);
     }
 }
