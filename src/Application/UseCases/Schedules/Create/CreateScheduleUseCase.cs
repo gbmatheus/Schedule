@@ -25,7 +25,7 @@ namespace Application.UseCases.Schedules.Create
             _mapper = mapper;
         }
 
-        public async Task<ScheduleResponseDTO> Execute(ScheduleCreateRequestDTO request)
+        public async Task<ScheduleCreateResponseDTO> Execute(ScheduleCreateRequestDTO request)
         {
             Validate(request);
 
@@ -40,7 +40,7 @@ namespace Application.UseCases.Schedules.Create
             await _scheduleRepository.Add(schedule);
             await _unitOfWork.Commit();
 
-            return _mapper.Map<ScheduleResponseDTO>(schedule);
+            return _mapper.Map<ScheduleCreateResponseDTO>(schedule);
         }
 
         private void Validate(ScheduleCreateRequestDTO request)
