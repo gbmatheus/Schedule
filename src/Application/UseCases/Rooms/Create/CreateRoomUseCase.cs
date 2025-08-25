@@ -22,7 +22,7 @@ namespace Application.UseCases.Rooms.Create
 
         public async Task<RoomShortResponseDTO> Execute(RoomCreateRequestDTO request)
         {
-            var room = new Room(request.Name);
+            var room = new Room(request.Name, request.Capactity);
 
             await _repository.Add(room);
             await _unitOfWork.Commit();

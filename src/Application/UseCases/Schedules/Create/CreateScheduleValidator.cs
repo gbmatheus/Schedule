@@ -7,10 +7,11 @@ namespace Application.UseCases.Schedules.Create
     {
         public CreateScheduleValidator()
         {
+            RuleFor(schedule => schedule.Title).NotEmpty().WithMessage("Title is required").MaximumLength(100).WithMessage("Title must be no longer than 100 characters");
+            RuleFor(schedule => schedule.Organizer).NotEmpty().WithMessage("Organizer is required");
             RuleFor(schedule => schedule.RoomId).NotEmpty().WithMessage("Room ID is required");
             RuleFor(schedule => schedule.StartDateTime).GreaterThan(DateTime.UtcNow).WithMessage("Schedule cannot be for the past");
-            RuleFor(schedule => schedule.StartDateTime).LessThanOrEqualTo(schedule => schedule.EndDateTime).WithMessage("End date and time must be after the start date and time");
-            RuleFor(schedule => DateOnly.FromDateTime(schedule.StartDateTime)).Equal(schedule => DateOnly.FromDateTime(schedule.EndDateTime)).WithMessage("The start date and the end date are different days");
+            RuleFor(schedule => schedule.StartDateTime).LessThanOrEqualTo(schedule => schedule.EndDateTime).WithMessage("End date/time must be after the start date/time");
         }
     }
 }
