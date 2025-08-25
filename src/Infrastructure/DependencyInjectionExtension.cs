@@ -31,6 +31,8 @@ namespace Infrastructure
         {
             var connectionServer = configuration.GetConnectionString("Connection");
             services.AddDbContext<ScheduleDBContext>(config => config.UseSqlite(connectionServer));
+
+            services.AddScoped<ScheduleDBContextInitialiser>();
         }
     }
 }
