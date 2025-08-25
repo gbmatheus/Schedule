@@ -10,10 +10,11 @@ public class RoomTest
     [Fact]
     public void Create_Instance_Room_Sucess()
     {
-        var room = new Room("Sala de conferência");
+        var room = new Room("Sala de conferência", 4);
 
         //room.Id.Should().Be(1);
         room.Name.Should().Be("Sala de conferência");
+        room.Capacity.Should().Be(4);
     }
 
     //[Fact]
@@ -24,30 +25,38 @@ public class RoomTest
     //    act.Should().Throw<Exception>().WithMessage("ID is required");
     //}
 
-
     [Fact]
     public void Error_Name_Null_Or_Empty()
     {
-        var act = () => new Room("");
+        var act = () => new Room("", 4);
 
         act.Should().Throw<DomainException>().WithMessage("Name is required");
     }
 
     [Fact]
+    public void Error_Capcity_Zero()
+    {
+        var act = () => new Room("Sala de conferência", 0);
+
+        act.Should().Throw<DomainException>().WithMessage("Capacity is required");
+    }
+
+    [Fact]
     public void Check_Room_Is_Not_Available()
     {
-        var room = new Room("Sala de conferência");
+        var room = new Room("Sala de conferência", 4);
         var dateTimeRange = new DateTimeRange(
-            new DateTime(2025, 8, 20, 20, 0, 0),
-            new DateTime(2025, 8, 20, 21, 0, 0)
+            DateTime.UtcNow.AddHours(1),
+            DateTime.UtcNow.AddHours(2)
         );
 
         var dateTimeRange2 = new DateTimeRange(
-            new DateTime(2025, 8, 20, 20, 20, 0),
-            new DateTime(2025, 8, 20, 21, 20, 0)
+            DateTime.UtcNow.AddHours(1),
+            DateTime.UtcNow.AddHours(2)
         );
 
         var schedule = new Schedule(
+            "Planejamento", 4, "Maria",
             room, dateTimeRange
         );
 

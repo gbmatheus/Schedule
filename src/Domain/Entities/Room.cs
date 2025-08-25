@@ -8,6 +8,7 @@ public class Room
 {
     public int Id { get; private set; }
     public string Name { get; private set; } = string.Empty;
+    public int Capacity { get; private set; }
     private readonly List<Schedule> _schedules = [];
     public IReadOnlyCollection<Schedule> Schedules => _schedules;
 
@@ -15,12 +16,11 @@ public class Room
     {
     }
 
-    public Room(string name)
+    public Room(string name, int capacity)
     {
-        if (string.IsNullOrWhiteSpace(name))
-            throw new DomainException("Name is required");
-
         Name = name;
+        Capacity = capacity;
+        Validate();
     }
 
     public void AddSchedule(Schedule schedule)
@@ -32,7 +32,15 @@ public class Room
     {
         return !_schedules.Any(schedule =>
             schedule.DateTimeRange.Overlaps(dateTimeRange) &&
-            schedule.Status == ScheduleStatus.Occupied
+            schedule.Status == ScheduleStatus.Scheduled
         );
+    }
+
+    private void Validate()
+    {
+        if (string.IsNullOrWhiteSpace(Name))
+            throw new DomainException("Name is required");
+        if (Capacity <= 0)
+            throw new DomainException("Capacity is required");
     }
 }
