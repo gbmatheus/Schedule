@@ -1,8 +1,6 @@
 # Schedule API
 [![Ask DeepWiki](https://devin.ai/assets/askdeepwiki.png)](https://deepwiki.com/gbmatheus/Schedule)
 
-This repository contains a simple API for managing room schedules and bookings. The system allows users to create rooms and then schedule bookings for specific time slots within those rooms. The project is built with .NET 8 and follows a Clean Architecture approach.
-
 Esse repositório contém uma API simples para gerenciar horários e reservas de salas. O sistema permite que os usuários criem salas e, em seguida, agendem reservas para intervalos de tempo específicos dentro dessas salas. O projeto foi desenvolvido com .NET 8.
 
 
