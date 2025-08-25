@@ -22,6 +22,16 @@ public class DateTimeRange
             other.StartDateTime < EndDateTime;
     }
 
+    public TimeSpan DiffDate()
+    {
+        return (EndDateTime - StartDateTime);
+    }
+
+    public string DurationHoursMinutes()
+    {
+        return $"{DiffDate().TotalHours}h {DiffDate().Minutes}min";
+    }
+
     private void Validate()
     {
         if (StartDateTime > EndDateTime)
@@ -33,7 +43,7 @@ public class DateTimeRange
         if (StartDateTime < DateTime.UtcNow || EndDateTime < DateTime.UtcNow)
             throw new DomainException("Start and end date/time cannot be for the past");
 
-        if ((EndDateTime - StartDateTime).TotalMinutes < MIN_DURATION || (EndDateTime - StartDateTime).TotalMinutes > MAX_DURATION)
+        if (DiffDate().TotalMinutes < MIN_DURATION || DiffDate().TotalMinutes > MAX_DURATION)
             throw new DomainException("Duration must be between 30 minutes and 4 hours");
 
     }

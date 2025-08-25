@@ -15,9 +15,14 @@ namespace Application.UseCases.Schedules.GetAll
             _mapper = mapper;
         }
 
-        public async Task<SchedulesResponseDTO> Execute()
+        public async Task<SchedulesResponseDTO> Execute(DateOnly? date)
         {
-            var schedules = await _repository.GetAll();
+            List<Domain.Entities.Schedule> schedules;
+            if (date is null)
+                schedules = await _repository.GetAll();
+            else
+                schedules = await _repository.GetByDate((DateOnly)date);
+
             return new SchedulesResponseDTO
             {
                 Schedules = _mapper.Map<List<ScheduleResponseDTO>>(schedules)
