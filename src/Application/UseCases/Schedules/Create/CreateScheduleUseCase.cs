@@ -35,7 +35,7 @@ namespace Application.UseCases.Schedules.Create
                 throw new NotFoundException("Schedule not found");
 
             var dateTimeRange = new DateTimeRange(request.StartDateTime, request.EndDateTime);
-            var schedule = new Schedule(room, dateTimeRange);
+            var schedule = new Schedule(request.Title, request.ParticipantCount, request.Organizer, room, dateTimeRange);
 
             await _scheduleRepository.Add(schedule);
             await _unitOfWork.Commit();

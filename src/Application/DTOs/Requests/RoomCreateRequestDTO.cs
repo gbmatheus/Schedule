@@ -3,5 +3,6 @@
     public class RoomCreateRequestDTO
     {
         public string Name { get; set; } = string.Empty;
+        public int Capactity { get; set; }
     }
 }

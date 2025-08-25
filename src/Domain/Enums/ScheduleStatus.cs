@@ -2,6 +2,6 @@
 {
     public enum ScheduleStatus
     {
-        Occupied, Cancelled
+        Scheduled, Cancelled
     }
 }

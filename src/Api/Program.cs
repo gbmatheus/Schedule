@@ -1,6 +1,7 @@
 using Api.Filter;
 using Application;
 using Infrastructure;
+using Infrastructure.DataAccess;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    await InitialiseDatabaseAsync();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
@@ -31,3 +33,10 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+async Task InitialiseDatabaseAsync()
+{
+    await using var scope = app.Services.CreateAsyncScope();
+
+    await DatabaseInitialise.InitialiseDatabaseAsync(scope.ServiceProvider);
+}
